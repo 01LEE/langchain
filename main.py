@@ -1,18 +1,21 @@
 # .env import
 # from dotenv import load_dotenv
-from langchain_openai import OpenAI # 최신 버전
-import os
-
-# load_dotenv()
-llm = OpenAI()
-
-#streamlit import
+# import os
 import streamlit as st
 
-st.title("인공지능 시인")
-content = st.text_input('시의 주제를 제시해주세요.')
+from langchain_community.llms import CTransformers
 
-if st.button('시 만들기'):
-    with st.spinner('시 작성 중...'):
-        result = llm.invoke( content + "을 주제로 한 다섯 줄 시를 써줘 ")
+# load_dotenv() -> switched to ctransformers
+llm = CTransformers(
+    model="llama-2-7b-chat.ggmlv3.q5_0.bin",
+    model_type="llama"
+)
+
+# streamlit UI
+st.title("AI Poet")
+content = st.text_input('Please enter the topic of the poem.')
+
+if st.button('Generate Poem'):
+    with st.spinner('Generating poem...'):
+        result = llm.invoke(content + " is the topic. Write poem.")
         st.write(result)
