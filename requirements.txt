@@ -5,5 +5,7 @@ langchain-openai
 openai
 
 pypdf
-chromadb
 tiktoken
+
+chromadb
+faiss-cpu
